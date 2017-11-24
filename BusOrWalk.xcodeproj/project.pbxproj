@@ -15,6 +15,7 @@
 		456D656A1FBFA37800FCC158 /* BusOrWalkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D65691FBFA37800FCC158 /* BusOrWalkTests.swift */; };
 		456D65751FBFA37800FCC158 /* BusOrWalkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D65741FBFA37800FCC158 /* BusOrWalkUITests.swift */; };
 		456D65831FBFA53E00FCC158 /* translinkapimodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D65821FBFA53E00FCC158 /* translinkapimodel.swift */; };
+		4575ADC81FC7DAE500671152 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4575ADC71FC7DAE500671152 /* Reachability.swift */; };
 		45B2342A1FC6357D00B8506C /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B234291FC6357D00B8506C /* BusStop.swift */; };
 		50224114C257CCEBFC0D542F /* Pods_BusOrWalkUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F53194971198788C8A0E821 /* Pods_BusOrWalkUITests.framework */; };
 		DAD12A332FE9C6DC3D44DD12 /* Pods_BusOrWalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38234C0DE066EBDE0891FB5B /* Pods_BusOrWalk.framework */; };
@@ -56,6 +57,7 @@
 		456D65741FBFA37800FCC158 /* BusOrWalkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusOrWalkUITests.swift; sourceTree = "<group>"; };
 		456D65761FBFA37800FCC158 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		456D65821FBFA53E00FCC158 /* translinkapimodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = translinkapimodel.swift; sourceTree = "<group>"; };
+		4575ADC71FC7DAE500671152 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		45B234291FC6357D00B8506C /* BusStop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
 		56FD811B8AF15011128CAA7B /* Pods-BusOrWalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BusOrWalk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BusOrWalk/Pods-BusOrWalk.debug.xcconfig"; sourceTree = "<group>"; };
 		5944C4EDB5B7EB75FA842B3F /* Pods-BusOrWalkUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BusOrWalkUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BusOrWalkUITests/Pods-BusOrWalkUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				456D65601FBFA37800FCC158 /* Info.plist */,
 				456D65821FBFA53E00FCC158 /* translinkapimodel.swift */,
 				45B234291FC6357D00B8506C /* BusStop.swift */,
+				4575ADC71FC7DAE500671152 /* Reachability.swift */,
 			);
 			path = BusOrWalk;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 				456D65571FBFA37800FCC158 /* ViewController.swift in Sources */,
 				456D65831FBFA53E00FCC158 /* translinkapimodel.swift in Sources */,
 				45B2342A1FC6357D00B8506C /* BusStop.swift in Sources */,
+				4575ADC81FC7DAE500671152 /* Reachability.swift in Sources */,
 				456D65551FBFA37800FCC158 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

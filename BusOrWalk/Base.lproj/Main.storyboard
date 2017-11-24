@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8Qv-aA-8bv">
-                                <rect key="frame" x="20" y="40" width="374" height="152.66666666666666"/>
+                                <rect key="frame" x="20" y="40" width="374" height="181"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Y1F-N2-Vak">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="86.666666666666671"/>
@@ -67,6 +67,12 @@
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="BpS-mC-A7x">
                                         <rect key="frame" x="0.0" y="132.66666666666666" width="374" height="20"/>
                                     </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Bus Selected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O7S-ub-Ped">
+                                        <rect key="frame" x="0.0" y="160.66666666666666" width="374" height="20.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -79,6 +85,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="BusSelectedLabel" destination="O7S-ub-Ped" id="dzU-Tl-bGc"/>
                         <outlet property="BusStopNumberLabel" destination="MfP-dQ-505" id="84q-OP-0Ju"/>
                         <outlet property="BusStopNumberTextField" destination="0CR-od-ymd" id="Xjv-QR-CsL"/>
                         <outlet property="BusStopSpinner" destination="BpS-mC-A7x" id="FzI-rc-UpE"/>
@@ -88,6 +95,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="117.39130434782609" y="118.20652173913044"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ehe-RR-gIX">
+            <objects>
+                <viewController id="nb6-Io-FXT" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sua-ZM-bNN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="YVr-Y1-BNi"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mx9-HK-l5U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="117" y="803"/>
         </scene>
     </scenes>
 </document>
