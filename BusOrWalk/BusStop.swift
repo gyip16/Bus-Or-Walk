@@ -28,10 +28,9 @@ class BusStop: EVObject {
 
 // MARK: BusStopDataResponse
 class BusStopDataResponse {
-    
+    let apikey = "da7U5YMtuSBla2QK3msq"
     @discardableResult
     func loadBusStop(busStopNo: String, completionHandler: @escaping (DataResponse<BusStop>) -> Void) -> Alamofire.DataRequest {
-        let apikey = "da7U5YMtuSBla2QK3msq"
         let parameters: Parameters = [
             "apikey": apikey
             ] as [String: Any]
@@ -41,6 +40,33 @@ class BusStopDataResponse {
         ]
         
         return Alamofire.request("https://api.translink.ca/rttiapi/v1/stops/\(busStopNo)", method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers).validate().responseObject { (response: DataResponse<BusStop>) in
+            switch response.result {
+            case .success(let value):
+                print("\(value)")
+                completionHandler(response)
+            //print("Stop Number Data: \(busStop)")
+            case .failure(let error):
+                print("busstopchange \(error)")
+                print("something \(response)")
+                completionHandler(response)
+            }
+        }
+    }
+    func loadBusStopsInArea(busNo: String, busStopLat: String, busStopLong: String, completionHandler: @escaping (DataResponse<String>) -> Void) -> Alamofire.DataRequest {
+        
+        let parameters: Parameters = [
+            "apikey": apikey,
+            "lat": busStopLat,
+            "long": busStopLong,
+            "routeNo": busNo,
+            "radius": 2000
+            ]
+        
+        let headers: HTTPHeaders = [
+            "Accept": "application/json"
+        ]
+        
+        return Alamofire.request("https://api.translink.ca/rttiapi/v1/stops", method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers).validate().responseString { response in
             switch response.result {
             case .success(let value):
                 print("\(value)")

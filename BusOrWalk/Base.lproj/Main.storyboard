@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Epd-F4-1dm">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Bus Or Walk-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="BusOrWalk" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,13 +19,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8Qv-aA-8bv">
-                                <rect key="frame" x="20" y="40" width="374" height="181"/>
+                                <rect key="frame" x="20" y="84" width="374" height="247"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Y1F-N2-Vak">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="86.666666666666671"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bus Stop Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MfP-dQ-505">
-                                                <rect key="frame" x="0.0" y="0.0" width="135" height="20.333333333333332"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Bus Stop Number:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MfP-dQ-505">
+                                                <rect key="frame" x="0.0" y="0.0" width="202.33333333333334" height="20.333333333333332"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -41,7 +41,7 @@
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bus Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVm-Tb-56T">
-                                                <rect key="frame" x="0.0" y="66.333333333333329" width="95" height="20.333333333333329"/>
+                                                <rect key="frame" x="0.0" y="66.333333333333343" width="95" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -73,6 +73,22 @@
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lwk-iL-khQ">
+                                        <rect key="frame" x="0.0" y="189" width="374" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Search Stops in Area"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="searchAreaBusStops:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d6h-mC-ZfZ"/>
+                                        </connections>
+                                    </button>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="pxs-lL-X95">
+                                        <rect key="frame" x="0.0" y="227" width="374" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -84,32 +100,206 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Bus Or Walk" id="9Ah-Z8-UL0"/>
                     <connections>
                         <outlet property="BusSelectedLabel" destination="O7S-ub-Ped" id="dzU-Tl-bGc"/>
                         <outlet property="BusStopNumberLabel" destination="MfP-dQ-505" id="84q-OP-0Ju"/>
                         <outlet property="BusStopNumberTextField" destination="0CR-od-ymd" id="Xjv-QR-CsL"/>
                         <outlet property="BusStopSpinner" destination="BpS-mC-A7x" id="FzI-rc-UpE"/>
+                        <outlet property="SearchAreaButton" destination="lwk-iL-khQ" id="Bu5-mE-ZQi"/>
+                        <outlet property="SearchSpinner" destination="pxs-lL-X95" id="2oS-xv-71F"/>
                         <outlet property="SelectBus" destination="FV0-uF-KjV" id="bhK-5K-c31"/>
+                        <segue destination="To9-hW-xH1" kind="show" identifier="segueToTable" id="fVo-Fj-LCD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="117.39130434782609" y="118.20652173913044"/>
+            <point key="canvasLocation" x="259" y="117"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="ehe-RR-gIX">
+        <!--Bus Stop Table View Controller-->
+        <scene sceneID="GMU-Qx-UYO">
             <objects>
-                <viewController id="nb6-Io-FXT" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="sua-ZM-bNN">
+                <tableViewController id="To9-hW-xH1" customClass="BusStopTableViewController" customModule="BusOrWalk" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="UCf-04-noz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <viewLayoutGuide key="safeArea" id="YVr-Y1-BNi"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Mx9-HK-l5U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BusStopTableViewCell" rowHeight="80" id="HbX-9e-eBM" customClass="BusStopTableViewCell" customModule="BusOrWalk" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HbX-9e-eBM" id="2pi-Ao-w1k">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="79.666666666666671"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bus Stop No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMl-4g-xn2">
+                                            <rect key="frame" x="20" y="11" width="374" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bus Stop Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0y-3c-E5v">
+                                            <rect key="frame" x="20" y="40" width="374" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="BusStopLocation" destination="s0y-3c-E5v" id="ImT-yH-c7P"/>
+                                    <outlet property="BusStopNumber" destination="gMl-4g-xn2" id="OJM-V5-iaX"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="To9-hW-xH1" id="Rzl-Vz-e5L"/>
+                            <outlet property="delegate" destination="To9-hW-xH1" id="QWN-Jm-cnr"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="hTu-wR-n42" kind="show" identifier="segueToResults" id="7iH-Ic-I5W"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xYx-rW-emm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="117" y="803"/>
+            <point key="canvasLocation" x="997" y="117"/>
+        </scene>
+        <!--Result View Controller-->
+        <scene sceneID="2QR-MM-hNN">
+            <objects>
+                <viewController id="hTu-wR-n42" customClass="ResultViewController" customModule="BusOrWalk" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UJ2-VS-1xV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nbq-36-oID">
+                                <rect key="frame" x="10" y="84" width="394" height="292.66666666666669"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQY-6e-F4O">
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="30"/>
+                                        <color key="textColor" red="0.26594960355381042" green="0.3638689590572593" blue="0.67521454015544036" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLY-co-r9z">
+                                        <rect key="frame" x="175.33333333333334" y="44" width="43.666666666666657" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="No7-Je-JOo">
+                                        <rect key="frame" x="176.33333333333334" y="72.333333333333343" width="41.333333333333343" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Bus Stop Next Bus ETA:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHW-Nf-m7l">
+                                        <rect key="frame" x="0.0" y="100.66666666666666" width="394" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yCs-1R-e3A">
+                                        <rect key="frame" x="0.0" y="129" width="394" height="20.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.2243559691" green="0.35347965479999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance To Selected Bus Stop:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zro-DY-trR">
+                                        <rect key="frame" x="0.0" y="157.33333333333334" width="394" height="20.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0a6-9X-00G">
+                                        <rect key="frame" x="0.0" y="185.66666666666669" width="394" height="20.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.2243559691" green="0.35347965479999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dc4-uU-dVR">
+                                        <rect key="frame" x="0.0" y="214" width="394" height="50.333333333333314"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="42"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcP-0J-YSi">
+                                        <rect key="frame" x="0.0" y="272.33333333333331" width="394" height="20.333333333333314"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="dcP-0J-YSi" secondAttribute="trailing" id="5Lf-K2-nRM"/>
+                                    <constraint firstItem="RQY-6e-F4O" firstAttribute="leading" secondItem="nbq-36-oID" secondAttribute="leading" id="6OK-nv-b9K"/>
+                                    <constraint firstItem="0a6-9X-00G" firstAttribute="leading" secondItem="nbq-36-oID" secondAttribute="leading" id="7mV-RO-cCR"/>
+                                    <constraint firstAttribute="trailing" secondItem="RQY-6e-F4O" secondAttribute="trailing" id="EJL-KO-hJ8"/>
+                                    <constraint firstItem="dcP-0J-YSi" firstAttribute="leading" secondItem="nbq-36-oID" secondAttribute="leading" id="NGK-dQ-nCC"/>
+                                    <constraint firstAttribute="trailing" secondItem="Zro-DY-trR" secondAttribute="trailing" id="TG6-p4-vsG"/>
+                                    <constraint firstItem="Zro-DY-trR" firstAttribute="leading" secondItem="nbq-36-oID" secondAttribute="leading" id="Vdu-yG-koo"/>
+                                    <constraint firstAttribute="trailing" secondItem="OHW-Nf-m7l" secondAttribute="trailing" id="Y4y-On-lq3"/>
+                                    <constraint firstAttribute="trailing" secondItem="yCs-1R-e3A" secondAttribute="trailing" id="d3J-QF-nA0"/>
+                                    <constraint firstAttribute="trailing" secondItem="0a6-9X-00G" secondAttribute="trailing" id="dT9-cj-zDF"/>
+                                    <constraint firstItem="yCs-1R-e3A" firstAttribute="leading" secondItem="nbq-36-oID" secondAttribute="leading" id="kio-dR-YhN"/>
+                                    <constraint firstItem="OHW-Nf-m7l" firstAttribute="leading" secondItem="nbq-36-oID" secondAttribute="leading" id="oEi-QW-wnZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="dc4-uU-dVR" secondAttribute="trailing" id="rof-gG-mTf"/>
+                                    <constraint firstItem="dc4-uU-dVR" firstAttribute="leading" secondItem="nbq-36-oID" secondAttribute="leading" id="yUz-Cg-Zc0"/>
+                                </constraints>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZf-on-r7I">
+                                <rect key="frame" x="20" y="666" width="374" height="60"/>
+                                <string key="text">The calculation for time of arrival by walking is based on the average human walking speed of 5 km/h, and does not take into account terrain, street lights, or other environmental factors. Bus arrival time is only as accurate as given from Translink. Please head to the bus stop 5 minutes earlier at minimum as suggested by Translink.</string>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kAk-vF-Me4" firstAttribute="trailing" secondItem="fZf-on-r7I" secondAttribute="trailing" constant="20" id="27U-em-m64"/>
+                            <constraint firstItem="nbq-36-oID" firstAttribute="top" secondItem="kAk-vF-Me4" secondAttribute="top" constant="20" id="3vF-xI-K9d"/>
+                            <constraint firstItem="kAk-vF-Me4" firstAttribute="trailing" secondItem="nbq-36-oID" secondAttribute="trailing" constant="10" id="JyW-ID-R1a"/>
+                            <constraint firstItem="nbq-36-oID" firstAttribute="leading" secondItem="kAk-vF-Me4" secondAttribute="leading" constant="10" id="Vop-1b-lgn"/>
+                            <constraint firstItem="fZf-on-r7I" firstAttribute="bottom" secondItem="kAk-vF-Me4" secondAttribute="bottom" constant="-10" id="aH1-iV-LLI"/>
+                            <constraint firstItem="fZf-on-r7I" firstAttribute="leading" secondItem="kAk-vF-Me4" secondAttribute="leading" constant="20" id="tGy-ck-g1e"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="kAk-vF-Me4"/>
+                    </view>
+                    <connections>
+                        <outlet property="Destinationlabel" destination="JLY-co-r9z" id="E4A-eo-WyR"/>
+                        <outlet property="RouteLabel" destination="RQY-6e-F4O" id="c5U-i1-CT2"/>
+                        <outlet property="destinationLocation" destination="No7-Je-JOo" id="DWC-tg-uuG"/>
+                        <outlet property="distanceLabel" destination="0a6-9X-00G" id="ttT-qz-z3y"/>
+                        <outlet property="etaLabel" destination="yCs-1R-e3A" id="uX4-US-Juk"/>
+                        <outlet property="resultLabel" destination="dcP-0J-YSi" id="c2b-zx-cpg"/>
+                        <outlet property="walkOrWaitLabel" destination="dc4-uU-dVR" id="fOB-79-Czz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M1v-iH-KKD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1700.0000000000002" y="116.57608695652175"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="zGS-fS-4uG">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Epd-F4-1dm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1Qu-ca-ItY">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="yHA-iM-DPL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LPI-1C-kZb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-483" y="118"/>
         </scene>
     </scenes>
 </document>

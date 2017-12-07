@@ -16,6 +16,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
     //MARK: Data
     var RoutesList = [String]()
     var SelectedRoute = String()
+    var BusStopOriginLong = String()
+    var BusStopOriginLat = String()
+    var BusStopList = [BusStop]()
+    var CurrentStop = BusStop()
     
     //MARK: Picker Data
     var pickerDataSource = [String]()
@@ -24,7 +28,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
     @IBOutlet weak var BusStopNumberLabel: UILabel!
     @IBOutlet weak var BusStopNumberTextField: UITextField!
     @IBOutlet weak var BusStopSpinner: UIActivityIndicatorView!
+    @IBOutlet weak var SearchSpinner: UIActivityIndicatorView!
     @IBOutlet weak var SelectBus: UIButton!
+    @IBOutlet weak var SearchAreaButton: UIButton!
     @IBOutlet weak var BusSelectedLabel: UILabel!
     
     
@@ -46,7 +52,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
         BusStopSpinner.isHidden = true
         SelectBus.isEnabled = false
         SelectBus.backgroundColor = UIColor.lightGray
-        checkNetwork()
+        SearchSpinner.isHidden = true
+        SearchAreaButton.isEnabled = false
+        SearchAreaButton.backgroundColor = UIColor.lightGray
+        if(checkNetwork()){}
         
 
     }
@@ -101,7 +110,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
         self.BusStopSpinner.isHidden = false
         a.loadBusStop(busStopNo: BusStopNumberTextField.text!) { response in
             if let bs = response.value {
+                self.CurrentStop = bs
                 self.RoutesList = bs.Routes!.components(separatedBy: ", ")
+                self.BusStopOriginLat = bs.Latitude!
+                self.BusStopOriginLong = bs.Longitude!
                 self.pickerDataSource = self.RoutesList
                 self.SelectBus.isEnabled = true
                 UIView.animate(withDuration: 0.5) {
@@ -117,14 +129,20 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
     // resets the form
     @IBAction func startBusStopEdit(_ sender: Any) {
         SelectBus.isEnabled = false
+        SearchAreaButton.isEnabled = false
         BusStopNumberTextField.layer.borderColor = UIColor.lightGray.cgColor
-        BusSelectedLabel.text! = "No Bus Selected"
+        UIView.animate(withDuration: 0.5) {
+            self.SelectBus.backgroundColor = UIColor.lightGray
+            self.SearchAreaButton.backgroundColor = UIColor.lightGray
+        }
+        BusSelectedLabel.text! = "No Bus Selected."
         SelectedRoute = String()
     }
     
     //MARK: Bus Number Actions
     @IBAction func selectingBus(_ sender: Any) {
         let vc = UIViewController()
+        SelectedRoute = String()
         vc.preferredContentSize = CGSize(width: 250,height: 275)
         let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: 250, height: 275))
         pickerView.delegate = self
@@ -133,11 +151,52 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
         let editRadiusAlert = UIAlertController(title: "Select a Bus", message: "", preferredStyle: UIAlertControllerStyle.alert)
         editRadiusAlert.setValue(vc, forKey: "contentViewController")
         editRadiusAlert.addAction(UIAlertAction(title: "Select", style: .default, handler: { action in
-            self.BusSelectedLabel.text! = self.SelectedRoute
+            if(self.SelectedRoute.isEmpty) {
+                self.BusSelectedLabel.text! = self.pickerDataSource[0]
+                self.SelectedRoute = self.pickerDataSource[0]
+            } else {
+                self.BusSelectedLabel.text! = self.SelectedRoute
+            }
+            self.SearchAreaButton.isEnabled = true
+            UIView.animate(withDuration: 0.5) {
+                self.SearchAreaButton.backgroundColor = UIColor(white: 0.9, alpha: 0.5)
+            }
         }))
         editRadiusAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(editRadiusAlert, animated: true)
     }
+    
+    @IBAction func searchAreaBusStops(_ sender: Any) {
+        let a = BusStopDataResponse()
+        self.SearchSpinner.startAnimating()
+        self.SearchSpinner.isHidden = false
+        a.loadBusStopsInArea(busNo: BusSelectedLabel.text!, busStopLat: BusStopOriginLat, busStopLong: BusStopOriginLong){ response in
+            if let bs = response.value {
+                print("searching : \(bs)")
+                let json:String = bs
+                self.BusStopList = [BusStop](json: json)
+                self.SearchSpinner.isHidden = true
+                self.performSegue(withIdentifier: "segueToTable", sender: self)
+            } else {
+                print("error so i ran")
+                self.SearchSpinner.isHidden = true
+            }
+            
+        }
+    }
+    
+    //MARK: Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueToTable" {
+            //if let destination = segue.destination as? BusStopTableViewController {
+            if let destination = segue.destination as? BusStopTableViewController {
+                destination.busStops = BusStopList
+                destination.currentStop = CurrentStop
+                destination.viewTitle = SelectedRoute
+            }
+        }
+    }
+    
     
     //MARK: Picker Functions
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -165,7 +224,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
         }else{
             print("Internet Connection not Available!")
             SelectBus.isEnabled = false
+            SearchAreaButton.isEnabled = false
+            SearchSpinner.isHidden = true
+            BusStopSpinner.isHidden = true
             BusStopNumberTextField.layer.borderColor = UIColor.lightGray.cgColor
+            UIView.animate(withDuration: 0.5) {
+                self.SelectBus.backgroundColor = UIColor.lightGray
+            }
             BusSelectedLabel.text! = "No Bus Selected"
             SelectedRoute = String()
             let alertController = UIAlertController(title: "No Network", message: "No internet connection found. Please try again later.", preferredStyle: .alert)
