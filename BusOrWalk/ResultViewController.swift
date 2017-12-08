@@ -36,6 +36,7 @@ class ResultViewController: UIViewController {
     
     
     func configureView() {
+        var translinkDataFatalFormatFlag = false
         // Update the user interface for the detail item.
         RouteLabel.text = SelectedRoute
         Destinationlabel.text = SelectedStop.StopNo
@@ -69,10 +70,21 @@ class ResultViewController: UIViewController {
                         }
                     }
                 }
-                self.currentETADate = earliestDate!
-                self.currentETAString = earliestTime!
-                self.etaLabel.text = earliestTime!
-                self.destinationInfo()
+                if(earliestDate == nil) {
+                    translinkDataFatalFormatFlag = true
+                    self.walkOrWaitLabel.text = "Bus Aint Coming Soon"
+                    self.walkOrWaitLabel.textColor = UIColor.red
+                    self.resultLabel.text = "If you got here, Translink screwed up."
+                    self.resultLabel.textColor = UIColor.red
+                    self.etaLabel.text = "Sorry. Cannot get Correct Data"
+                    self.etaLabel.textColor = UIColor.red
+                } else {
+                    self.currentETADate = earliestDate!
+                    self.currentETAString = earliestTime!
+                    self.etaLabel.text = earliestTime!
+                    self.destinationInfo()
+                }
+
                 
             } else {
                 print("error in estimates")
@@ -152,9 +164,9 @@ class ResultViewController: UIViewController {
                     } else {
                         print("print time :\(thecomponents.minute!)")
                         self.walkOrWaitLabel.text = "WAIT!"
-                        self.walkOrWaitLabel.textColor = UIColor.red
+                        self.walkOrWaitLabel.textColor = UIColor(red: 1.0, green: 0.8, blue: 0.2, alpha: 1.0)
                         self.resultLabel.text = "Bus is coming earlier than you can walk"
-                        self.resultLabel.textColor = UIColor.red
+                        self.resultLabel.textColor = UIColor(red: 1.0, green: 0.8, blue: 0.2, alpha: 1.0)
                     }
                 }
             }

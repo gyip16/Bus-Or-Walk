@@ -143,6 +143,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
     
     //MARK: Bus Number Actions
     @IBAction func selectingBus(_ sender: Any) {
+        BusSelectedLabel.text! = "No Bus Selected"
+        SelectedRoute = String()
+        SearchAreaButton.isEnabled = false
+        SearchSpinner.isHidden = true
+        UIView.animate(withDuration: 0.5) {
+            self.SearchAreaButton.backgroundColor = UIColor.lightGray
+        }
         let vc = UIViewController()
         SelectedRoute = String()
         vc.preferredContentSize = CGSize(width: 250,height: 275)
