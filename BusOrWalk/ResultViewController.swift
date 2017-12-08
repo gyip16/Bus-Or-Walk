@@ -53,7 +53,7 @@ class ResultViewController: UIViewController {
                 var earliestDate: Date? = nil
                 for schedule in CurrentEstimate.Schedules! {
                     if(earliestDate == nil) {
-                        if schedule.ExpectedLeaveTime!.count < 7 {
+                        if schedule.ExpectedLeaveTime!.count <= 7 {
                             print("formatchanged1")
                             dateFormatter.dateFormat = "h:mma"
                             var times = [String]()
@@ -70,7 +70,7 @@ class ResultViewController: UIViewController {
                             earliestDate = dateFormatter.date(from: schedule.ExpectedLeaveTime!)
                         }
                     } else {
-                        if schedule.ExpectedLeaveTime!.count < 7 {
+                        if schedule.ExpectedLeaveTime!.count <= 7 {
                             print("formatchanged2")
                             dateFormatter.dateFormat = "h:mma"
                             var times = [String]()
@@ -139,7 +139,7 @@ class ResultViewController: UIViewController {
                 var earliestDate: Date? = nil
                 for schedule in DestinationEstimate.Schedules! {
                     if(earliestDate == nil) {
-                        if schedule.ExpectedLeaveTime!.count < 7 {
+                        if schedule.ExpectedLeaveTime!.count <= 7 {
                             print("formatchanged3")
                             dateFormatter.dateFormat = "h:mma"
                             var times = [String]()
@@ -156,7 +156,7 @@ class ResultViewController: UIViewController {
                             earliestDate = dateFormatter.date(from: schedule.ExpectedLeaveTime!)
                         }
                     } else {
-                        if schedule.ExpectedLeaveTime!.count < 7 {
+                        if schedule.ExpectedLeaveTime!.count <= 7 {
                             print("formatchanged4")
                             dateFormatter.dateFormat = "h:mma"
                             var times = [String]()
