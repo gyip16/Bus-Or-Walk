@@ -108,22 +108,24 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
         let a = BusStopDataResponse()
         self.BusStopSpinner.startAnimating()
         self.BusStopSpinner.isHidden = false
-        a.loadBusStop(busStopNo: BusStopNumberTextField.text!) { response in
-            if let bs = response.value {
-                self.CurrentStop = bs
-                self.RoutesList = bs.Routes!.components(separatedBy: ", ")
-                self.BusStopOriginLat = bs.Latitude!
-                self.BusStopOriginLong = bs.Longitude!
-                self.pickerDataSource = self.RoutesList
-                self.SelectBus.isEnabled = true
-                UIView.animate(withDuration: 0.5) {
-                    self.SelectBus.backgroundColor = UIColor(white: 0.9, alpha: 0.5)
+        if(checkNetwork()) {
+            a.loadBusStop(busStopNo: BusStopNumberTextField.text!) { response in
+                if let bs = response.value {
+                    self.CurrentStop = bs
+                    self.RoutesList = bs.Routes!.components(separatedBy: ", ")
+                    self.BusStopOriginLat = bs.Latitude!
+                    self.BusStopOriginLong = bs.Longitude!
+                    self.pickerDataSource = self.RoutesList
+                    self.SelectBus.isEnabled = true
+                    UIView.animate(withDuration: 0.5) {
+                        self.SelectBus.backgroundColor = UIColor(white: 0.9, alpha: 0.5)
+                    }
+                } else {
+                    print("error so i ran")
+                    self.BusStopNumberTextField.layer.borderColor = self.invalidColor.cgColor
                 }
-            } else {
-                print("error so i ran")
-                self.BusStopNumberTextField.layer.borderColor = self.invalidColor.cgColor
+                self.BusStopSpinner.isHidden = true
             }
-            self.BusStopSpinner.isHidden = true
         }
     }
     // resets the form
@@ -170,18 +172,20 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
         let a = BusStopDataResponse()
         self.SearchSpinner.startAnimating()
         self.SearchSpinner.isHidden = false
-        a.loadBusStopsInArea(busNo: BusSelectedLabel.text!, busStopLat: BusStopOriginLat, busStopLong: BusStopOriginLong){ response in
-            if let bs = response.value {
-                print("searching : \(bs)")
-                let json:String = bs
-                self.BusStopList = [BusStop](json: json)
-                self.SearchSpinner.isHidden = true
-                self.performSegue(withIdentifier: "segueToTable", sender: self)
-            } else {
-                print("error so i ran")
-                self.SearchSpinner.isHidden = true
+        if(checkNetwork()) {
+            a.loadBusStopsInArea(busNo: BusSelectedLabel.text!, busStopLat: BusStopOriginLat, busStopLong: BusStopOriginLong){ response in
+                if let bs = response.value {
+                    print("searching : \(bs)")
+                    let json:String = bs
+                    self.BusStopList = [BusStop](json: json)
+                    self.SearchSpinner.isHidden = true
+                    self.performSegue(withIdentifier: "segueToTable", sender: self)
+                } else {
+                    print("error so i ran")
+                    self.SearchSpinner.isHidden = true
+                }
+                
             }
-            
         }
     }
     
@@ -230,6 +234,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
             BusStopNumberTextField.layer.borderColor = UIColor.lightGray.cgColor
             UIView.animate(withDuration: 0.5) {
                 self.SelectBus.backgroundColor = UIColor.lightGray
+                self.SearchAreaButton.backgroundColor = UIColor.lightGray
             }
             BusSelectedLabel.text! = "No Bus Selected"
             SelectedRoute = String()

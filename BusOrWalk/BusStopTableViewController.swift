@@ -102,8 +102,9 @@ class BusStopTableViewController: UITableViewController {
     // MARK: - Navigation
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You selected cell #\(indexPath.row)!")
-        
-        performSegue(withIdentifier: "segueToResults", sender: self)
+        if(checkNetwork()) {
+            performSegue(withIdentifier: "segueToResults", sender: self)
+        }
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -120,6 +121,21 @@ class BusStopTableViewController: UITableViewController {
             }
         }
         
+    }
+    
+    //MARK: Internet Connectivity Check
+    func checkNetwork() -> Bool {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            return true
+        } else {
+            print("Internet Connection not Available!")
+            let alertController = UIAlertController(title: "No Network", message: "No internet connection found. Please try again later.", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alertController.addAction(defaultAction)
+            present(alertController, animated: true, completion: nil)
+            return false
+        }
     }
     
 

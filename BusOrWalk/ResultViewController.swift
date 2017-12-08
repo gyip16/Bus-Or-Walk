@@ -10,6 +10,10 @@ import UIKit
 
 class ResultViewController: UIViewController {
     
+    //MARK: Const Properties
+    let AverageWalkingSpeed: Double = 5000.0 //meters per hour
+    let MinutesInHour: Double = 60.0 //minutes
+    
     //MARK: Properties
     var SelectedStop = BusStop()
     var CurrentStop = BusStop()
@@ -19,6 +23,7 @@ class ResultViewController: UIViewController {
     var currentETADate: Date? = nil
     var destinationETAString = String()
     var destinationETADate: Date? = nil
+    var metersperminute: Double?
     //MARK: UI Elements
     
     @IBOutlet weak var RouteLabel: UILabel!
@@ -70,7 +75,10 @@ class ResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        metersperminute = AverageWalkingSpeed/MinutesInHour
         configureView()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -104,9 +112,27 @@ class ResultViewController: UIViewController {
                 self.destinationETAString = earliestTime!
                 var thecomponents = Calendar.current.dateComponents([.minute], from: self.currentETADate!, to: self.destinationETADate!)
                 if(thecomponents.minute! > 0) {
-                    print("print time :\(thecomponents.minute!)")
+                    let diffMinutes = Double(thecomponents.minute!)
+                    let walkETA = (Double(self.SelectedStop.Distance!)! / self.metersperminute!)
+                    if ( walkETA < diffMinutes) {
+                        let walkingfaster = diffMinutes / walkETA
+                        print("print time :\(thecomponents.minute!)")
+                        self.walkOrWaitLabel.text = "WALK!"
+                        self.walkOrWaitLabel.textColor = UIColor.green
+                        self.resultLabel.text = "Walking is faster by \(walkingfaster) min"
+                    } else {
+                        print("print time :\(thecomponents.minute!)")
+                        self.walkOrWaitLabel.text = "WAIT!"
+                        self.walkOrWaitLabel.textColor = UIColor.red
+                        self.resultLabel.text = "Bus is coming earlier than you can walk"
+                        self.resultLabel.textColor = UIColor.red
+                    }
                 } else {
-                    print("stay")
+                    print("print time :\(thecomponents.minute!)")
+                    self.walkOrWaitLabel.text = "WAIT!"
+                    self.walkOrWaitLabel.textColor = UIColor.red
+                    self.resultLabel.text = "Bus is coming earlier than you can walk"
+                    self.resultLabel.textColor = UIColor.red
                 }
             }
         }
