@@ -54,14 +54,34 @@ class ResultViewController: UIViewController {
                 for schedule in CurrentEstimate.Schedules! {
                     if(earliestDate == nil) {
                         if schedule.ExpectedLeaveTime!.count < 7 {
-                            print("formatchanged")
+                            print("formatchanged1")
+                            dateFormatter.dateFormat = "h:mma"
+                            var times = [String]()
+                            times.append(schedule.ExpectedLeaveTime!)
+                            let dateArray = times.map { Calendar.current.dateComponents([.hour, .minute], from: dateFormatter.date(from:$0)!) }
+                            let upcomingTime = dateArray.map { Calendar.current.nextDate(after: Date(), matching: $0, matchingPolicy: .nextTime)!  }
+                            dateFormatter.dateFormat = "hh:mma yyyy-MM-dd"
+                            print("\(dateFormatter.string(from: upcomingTime[0]))")
+                            
+                            earliestTime = String(dateFormatter.string(from: upcomingTime[0]).prefix(7))
+                            earliestDate = upcomingTime[0]
                         } else {
                             earliestTime = String(schedule.ExpectedLeaveTime!.prefix(7))
                             earliestDate = dateFormatter.date(from: schedule.ExpectedLeaveTime!)
                         }
                     } else {
                         if schedule.ExpectedLeaveTime!.count < 7 {
-                            print("formatchanged")
+                            print("formatchanged2")
+                            dateFormatter.dateFormat = "h:mma"
+                            var times = [String]()
+                            times.append(schedule.ExpectedLeaveTime!)
+                            let dateArray = times.map { Calendar.current.dateComponents([.hour, .minute], from: dateFormatter.date(from:$0)!) }
+                            let upcomingTime = dateArray.map { Calendar.current.nextDate(after: Date(), matching: $0, matchingPolicy: .nextTime)!  }
+                            dateFormatter.dateFormat = "hh:mma yyyy-MM-dd"
+                            print("\(dateFormatter.string(from: upcomingTime[0]))")
+                            
+                            earliestTime = String(dateFormatter.string(from: upcomingTime[0]).prefix(7))
+                            earliestDate = upcomingTime[0]
                         } else {
                             if (earliestDate! > dateFormatter.date(from: schedule.ExpectedLeaveTime!)!) {
                                 earliestTime = String(schedule.ExpectedLeaveTime!.prefix(7))
@@ -120,14 +140,34 @@ class ResultViewController: UIViewController {
                 for schedule in DestinationEstimate.Schedules! {
                     if(earliestDate == nil) {
                         if schedule.ExpectedLeaveTime!.count < 7 {
-                            print("formatchanged")
+                            print("formatchanged3")
+                            dateFormatter.dateFormat = "h:mma"
+                            var times = [String]()
+                            times.append(schedule.ExpectedLeaveTime!)
+                            let dateArray = times.map { Calendar.current.dateComponents([.hour, .minute], from: dateFormatter.date(from:$0)!) }
+                            let upcomingTime = dateArray.map { Calendar.current.nextDate(after: Date(), matching: $0, matchingPolicy: .nextTime)!  }
+                            dateFormatter.dateFormat = "hh:mma yyyy-MM-dd"
+                            print("\(dateFormatter.string(from: upcomingTime[0]))")
+                            
+                            earliestTime = String(dateFormatter.string(from: upcomingTime[0]).prefix(7))
+                            earliestDate = upcomingTime[0]
                         } else {
                             earliestTime = String(schedule.ExpectedLeaveTime!.prefix(7))
                             earliestDate = dateFormatter.date(from: schedule.ExpectedLeaveTime!)
                         }
                     } else {
                         if schedule.ExpectedLeaveTime!.count < 7 {
-                            print("formatchanged")
+                            print("formatchanged4")
+                            dateFormatter.dateFormat = "h:mma"
+                            var times = [String]()
+                            times.append(schedule.ExpectedLeaveTime!)
+                            let dateArray = times.map { Calendar.current.dateComponents([.hour, .minute], from: dateFormatter.date(from:$0)!) }
+                            let upcomingTime = dateArray.map { Calendar.current.nextDate(after: Date(), matching: $0, matchingPolicy: .nextTime)!  }
+                            dateFormatter.dateFormat = "hh:mma yyyy-MM-dd"
+                            print("\(dateFormatter.string(from: upcomingTime[0]))")
+                            
+                            earliestTime = String(dateFormatter.string(from: upcomingTime[0]).prefix(7))
+                            earliestDate = upcomingTime[0]
                         } else {
                             if (earliestDate! > dateFormatter.date(from: schedule.ExpectedLeaveTime!)!) {
                                 earliestTime = String(schedule.ExpectedLeaveTime!.prefix(7))
@@ -148,24 +188,27 @@ class ResultViewController: UIViewController {
                     if(thecomponents.minute! > 0) {
                         let diffMinutes = Double(thecomponents.minute!)
                         let walkETA = (Double(self.SelectedStop.Distance!)! / self.metersperminute!)
+                        print("diffMinutes: \(diffMinutes)")
+                        print("WalkETA: \(walkETA)")
                         if ( walkETA < diffMinutes) {
-                            let walkingfaster = diffMinutes / walkETA
-                            print("print time :\(thecomponents.minute!)")
+                            print("print time : \(thecomponents.minute!)")
+                            
+                            
                             self.walkOrWaitLabel.text = "WALK!"
                             self.walkOrWaitLabel.textColor = UIColor.green
-                            self.resultLabel.text = "Walking is faster by \(walkingfaster) min"
+                            self.resultLabel.text = "You can walk there in: " + String(format: "%.2f", walkETA) + " min"
                         } else {
                             print("print time :\(thecomponents.minute!)")
                             self.walkOrWaitLabel.text = "WAIT!"
-                            self.walkOrWaitLabel.textColor = UIColor.red
-                            self.resultLabel.text = "Bus is coming earlier than you can walk"
-                            self.resultLabel.textColor = UIColor.red
+                            self.walkOrWaitLabel.textColor = UIColor(red: 1.0, green: 0.8, blue: 0.2, alpha: 1.0)
+                            self.resultLabel.text = "Bus is Faster"
+                            self.resultLabel.textColor = UIColor(red: 1.0, green: 0.8, blue: 0.2, alpha: 1.0)
                         }
                     } else {
                         print("print time :\(thecomponents.minute!)")
                         self.walkOrWaitLabel.text = "WAIT!"
                         self.walkOrWaitLabel.textColor = UIColor(red: 1.0, green: 0.8, blue: 0.2, alpha: 1.0)
-                        self.resultLabel.text = "Bus is coming earlier than you can walk"
+                        self.resultLabel.text = "Bus is Faster"
                         self.resultLabel.textColor = UIColor(red: 1.0, green: 0.8, blue: 0.2, alpha: 1.0)
                     }
                 }
