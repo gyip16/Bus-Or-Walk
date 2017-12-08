@@ -52,12 +52,20 @@ class ResultViewController: UIViewController {
                 var earliestDate: Date? = nil
                 for schedule in CurrentEstimate.Schedules! {
                     if(earliestDate == nil) {
-                        earliestTime = String(schedule.ExpectedLeaveTime!.prefix(7))
-                        earliestDate = dateFormatter.date(from: schedule.ExpectedLeaveTime!)
-                    } else {
-                        if (earliestDate! > dateFormatter.date(from: schedule.ExpectedLeaveTime!)!) {
+                        if schedule.ExpectedLeaveTime!.count < 7 {
+                            print("formatchanged")
+                        } else {
                             earliestTime = String(schedule.ExpectedLeaveTime!.prefix(7))
                             earliestDate = dateFormatter.date(from: schedule.ExpectedLeaveTime!)
+                        }
+                    } else {
+                        if schedule.ExpectedLeaveTime!.count < 7 {
+                            print("formatchanged")
+                        } else {
+                            if (earliestDate! > dateFormatter.date(from: schedule.ExpectedLeaveTime!)!) {
+                                earliestTime = String(schedule.ExpectedLeaveTime!.prefix(7))
+                                earliestDate = dateFormatter.date(from: schedule.ExpectedLeaveTime!)
+                            }
                         }
                     }
                 }
@@ -99,27 +107,48 @@ class ResultViewController: UIViewController {
                 var earliestDate: Date? = nil
                 for schedule in DestinationEstimate.Schedules! {
                     if(earliestDate == nil) {
-                        earliestTime = String(schedule.ExpectedLeaveTime!.prefix(7))
-                        earliestDate = dateFormatter.date(from: schedule.ExpectedLeaveTime!)
-                    } else {
-                        if (earliestDate! > dateFormatter.date(from: schedule.ExpectedLeaveTime!)!) {
+                        if schedule.ExpectedLeaveTime!.count < 7 {
+                            print("formatchanged")
+                        } else {
                             earliestTime = String(schedule.ExpectedLeaveTime!.prefix(7))
                             earliestDate = dateFormatter.date(from: schedule.ExpectedLeaveTime!)
                         }
+                    } else {
+                        if schedule.ExpectedLeaveTime!.count < 7 {
+                            print("formatchanged")
+                        } else {
+                            if (earliestDate! > dateFormatter.date(from: schedule.ExpectedLeaveTime!)!) {
+                                earliestTime = String(schedule.ExpectedLeaveTime!.prefix(7))
+                                earliestDate = dateFormatter.date(from: schedule.ExpectedLeaveTime!)
+                            }
+                        }
                     }
                 }
-                self.destinationETADate = earliestDate!
-                self.destinationETAString = earliestTime!
-                var thecomponents = Calendar.current.dateComponents([.minute], from: self.currentETADate!, to: self.destinationETADate!)
-                if(thecomponents.minute! > 0) {
-                    let diffMinutes = Double(thecomponents.minute!)
-                    let walkETA = (Double(self.SelectedStop.Distance!)! / self.metersperminute!)
-                    if ( walkETA < diffMinutes) {
-                        let walkingfaster = diffMinutes / walkETA
-                        print("print time :\(thecomponents.minute!)")
-                        self.walkOrWaitLabel.text = "WALK!"
-                        self.walkOrWaitLabel.textColor = UIColor.green
-                        self.resultLabel.text = "Walking is faster by \(walkingfaster) min"
+                if(earliestDate == nil) {
+                    self.walkOrWaitLabel.text = "Bus Aint Coming Soon"
+                    self.walkOrWaitLabel.textColor = UIColor.red
+                    self.resultLabel.text = "If you got here, Translink screwed up."
+                    self.resultLabel.textColor = UIColor.red
+                } else {
+                    self.destinationETADate = earliestDate!
+                    self.destinationETAString = earliestTime!
+                    var thecomponents = Calendar.current.dateComponents([.minute], from: self.currentETADate!, to: self.destinationETADate!)
+                    if(thecomponents.minute! > 0) {
+                        let diffMinutes = Double(thecomponents.minute!)
+                        let walkETA = (Double(self.SelectedStop.Distance!)! / self.metersperminute!)
+                        if ( walkETA < diffMinutes) {
+                            let walkingfaster = diffMinutes / walkETA
+                            print("print time :\(thecomponents.minute!)")
+                            self.walkOrWaitLabel.text = "WALK!"
+                            self.walkOrWaitLabel.textColor = UIColor.green
+                            self.resultLabel.text = "Walking is faster by \(walkingfaster) min"
+                        } else {
+                            print("print time :\(thecomponents.minute!)")
+                            self.walkOrWaitLabel.text = "WAIT!"
+                            self.walkOrWaitLabel.textColor = UIColor.red
+                            self.resultLabel.text = "Bus is coming earlier than you can walk"
+                            self.resultLabel.textColor = UIColor.red
+                        }
                     } else {
                         print("print time :\(thecomponents.minute!)")
                         self.walkOrWaitLabel.text = "WAIT!"
@@ -127,12 +156,6 @@ class ResultViewController: UIViewController {
                         self.resultLabel.text = "Bus is coming earlier than you can walk"
                         self.resultLabel.textColor = UIColor.red
                     }
-                } else {
-                    print("print time :\(thecomponents.minute!)")
-                    self.walkOrWaitLabel.text = "WAIT!"
-                    self.walkOrWaitLabel.textColor = UIColor.red
-                    self.resultLabel.text = "Bus is coming earlier than you can walk"
-                    self.resultLabel.textColor = UIColor.red
                 }
             }
         }
