@@ -45,6 +45,7 @@ class ResultViewController: UIViewController {
         let current = BusEstimateDataResponse()
         current.loadBusStop(busStopNo: CurrentStop.StopNo!, bus: SelectedRoute) { response in
             if let c = response.value {
+                print("\(c)")
                 let clist = [BusEstimates](json: c)
                 let CurrentEstimate = clist[0]
                 let dateFormatter = DateFormatter()
@@ -185,27 +186,27 @@ class ResultViewController: UIViewController {
                     self.destinationETADate = earliestDate!
                     self.destinationETAString = earliestTime!
                     var thecomponents = Calendar.current.dateComponents([.minute], from: self.currentETADate!, to: self.destinationETADate!)
-                    if(thecomponents.minute! > 0) {
+                    if(thecomponents.minute! >= 0) {
                         let diffMinutes = Double(thecomponents.minute!)
                         let walkETA = (Double(self.SelectedStop.Distance!)! / self.metersperminute!)
                         print("diffMinutes: \(diffMinutes)")
                         print("WalkETA: \(walkETA)")
                         if ( walkETA < diffMinutes) {
-                            print("print time : \(thecomponents.minute!)")
+                            print("print suces time : \(thecomponents.minute!)")
                             
                             
                             self.walkOrWaitLabel.text = "WALK!"
                             self.walkOrWaitLabel.textColor = UIColor.green
                             self.resultLabel.text = "You can walk there in: " + String(format: "%.2f", walkETA) + " min"
                         } else {
-                            print("print time :\(thecomponents.minute!)")
+                            print("print wait time :\(thecomponents.minute!)")
                             self.walkOrWaitLabel.text = "WAIT!"
                             self.walkOrWaitLabel.textColor = UIColor(red: 1.0, green: 0.8, blue: 0.2, alpha: 1.0)
                             self.resultLabel.text = "Bus is Faster"
                             self.resultLabel.textColor = UIColor(red: 1.0, green: 0.8, blue: 0.2, alpha: 1.0)
                         }
                     } else {
-                        print("print time :\(thecomponents.minute!)")
+                        print("print wait 2 time :\(thecomponents.minute!)")
                         self.walkOrWaitLabel.text = "WAIT!"
                         self.walkOrWaitLabel.textColor = UIColor(red: 1.0, green: 0.8, blue: 0.2, alpha: 1.0)
                         self.resultLabel.text = "Bus is Faster"
