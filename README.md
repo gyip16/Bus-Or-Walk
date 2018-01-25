@@ -1,6 +1,8 @@
 # Bus-Or-Walk
 
-iOS application that determines if it is faster to walk to ur destination bus station or to wait at your current bus station location based on Translink API
+iOS application that determines if it is faster to walk to ur destination bus station or to wait at your current bus station location based on Translink API.
+
+Built for BCIT COMP4977 iOS Development Course
 
 ### Requirements:
 - iOS 10.3+
